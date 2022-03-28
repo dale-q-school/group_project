@@ -1,0 +1,14 @@
+# pseudocode - word guessing game
+
+# This is the pseudocode for the game called "How do you say in Japanese?"
+# The computer will show 5 random graphics. 
+# The player has to guess the Japanese word for each graphic.
+# Each graphic will have 4 options for the player to choose the correct word.
+# For example, when the computer shows the graphic of the apple,
+# 4 options would be: "1-banana", "2-mikan", "3-ringo", "4-momo"
+# The computer asks, "Which is the correct option for apple?"
+# The player picks one number... 
+# The computer says right or wrong. (The correct answer is "3-ringo".)
+# The player can play up to 5 graphics.
+# At the end, the result: "You got 3 correct answers out of 5."
+# Congratulate the player "Congratulation! You are genius!"
