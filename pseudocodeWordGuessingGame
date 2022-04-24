@@ -1,0 +1,18 @@
+# pseudocode - Word Guessing Game
+
+# This is the pseudocode for the Word Guessing Game.
+# In the menu of the game, the player will enter the name.
+# The computer will say "Welcome to the Word Guessing Game, 'name'."
+# The player choose the option what he/she wants to do.
+# If the player choose to play the game, then, he choose the category.
+# The computer shows(and reads) the title.
+# The computer will get the random question from that category.
+# It displays a question with 5 options.
+# The options are also randomly selected and always including right answer.
+# The player picks(enters) one number...
+# The computer displays the result with a small fun fact.(Decorating with ASCII codes) 
+# It displays the number of overall correct answers in the same category, and
+# Asks the player, "Continue, or quit? (c/q)"
+# It continues until the player choose to quit.
+# This program runs with "playsound", "pygame", and "gtts". 
+# When you run the program on your device, please change the files directories C:/...
