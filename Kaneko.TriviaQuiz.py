@@ -1,12 +1,7 @@
-# This is Word Guessing Game ver.10. Before running, make sure your device has installed playsound, pygame and gtts.
-# import sys
 import os
-# import time
-# import datetime
 from threading import Thread
 import random
 from time import sleep
-import pandas as pd
 from playsound import playsound
 from gtts import gTTS
 from pygame import mixer
@@ -118,27 +113,23 @@ CROSS = '\u2718'
 CROSS_RED = '\u274C'
 
 WRONG_CHOICE = "Sorry, that's not an option. Please try again!"
+PLAYERNAME = "John Doe"
 
 # temporary data
 # TODO: store in data file
 sets = ["NUMBERS", "FRUITS", "VEGETABLES", "ANIMALS", "NATURE", "GREETINGS","ADJECTIVES","VERBS","PRONOUNS","ADVERBS"]
-sets_df = pd.DataFrame(sets)
-sets_df
 
-categories=[
+categories = [
             [0,"Numbers", "Japanese Numbers","What is","in Japanese numbers?"],
             [1,"Fruits","Fruits are awesome", "Do you know what fruit is","?"],
-            [2,"Vegetables","Do you like healthy foods?","Do you know what is","?"],
-            [3,"Animals","Animal Lover","Do you know who is","?"],
-            [4,"Nature","Planet Earth", "What do you think", "is in English?"],
+            [2,"Vegetables","Do you like healthy foods?","Do you what know what","is?"],
+            [3,"Animals","Animal Lover","Do you know who is ","?"],
+            [4,"Nature","Planet Earth", "What do you think "," is in English?"],
             [5,"Greetings","Greeting Someone","What does "," mean in English?"],
-            [6,"Adjectives","Describe Something","What would be","in English?"],
+            [6,"Adjectives","Describe Something","What does","mean in English?"],
             [7,"Verbs","No Verbs, No Actions!","The Japanese verb","English equivalent is?"],
             [8,"Pronouns","Who?","Who would be","?"],
             [9,"Adverbs","The what, when, why, and who","Can you guess the adverb","?"],]
-
-categories_df = pd.DataFrame(categories)
-categories_df
 
 deck = {
     0: [
@@ -157,17 +148,23 @@ deck = {
     2:[[0,"kyuuri","cucumber","Japanese cucumbers are smaller"],
        [1,"toumorokoshi","corn","Japanese corns are sweet"],
        [2,"nasu","eggplant","Japanese eggplants are small"],[3,"ninniku","garlic","China produces 76% of the world's supply of garlic."],
-       [4,"kyabetsu","cabbage","Cabbages has lots of vitamin C"],[5,"ninjin","carrot","Bunnies love carots"],
+       [4,"kyabetsu","cabbage","Cabbages has lots of vitamin C"],[5,"ninjin","carrot","Bunnies love carrots"],
        [6,"jagaimo","potato","Idaho is coined as the Potato State."],[7,"tamanegi","onion","The most popular onions in Japan is yellow"],
        [8,"hourensou","spinach","Spinach is native to Persia"],[9,"satsumaimo","sweet potato","Sweet potatoes are high in beta carotene"]],
     3:[[0,"inu","dog","I love dogs"],[1,"neko","cat","Cats are independent"],[2,"zou","elephant","Elephants are smart"],
        [3,"uma","horse","Horses are beautiful"],[4,"buta","pig","Pigs are cute"],[5,"kuma","bear","Bears are big"],
-       [6,"tora","tiger","Tigers has stripes"],[7,"tori","bird","Birds fly in the sky"],
+       [6,"tora","tiger","Tigers have stripes"],[7,"tori","bird","Birds fly in the sky"],
        [8,"iruka","dolphin","Dolphins have healing power"],[9,"saru","monkey","Japanese monkeys like to taking baths"]],
-    4:[[0,"ki","tree","big tree is \"Ookii ki\""],[1,"hana","flower","beautiful flower is \"kireina hana\""],[2,"tsuki","moon","Michael Jackson's moonwalk "],
-       [3,"taiyou","sun","The sun is the closest star to our planet"],[4,"umi","ocean","Japan is surrounded by the oceans"],
-       [5,"yama","mountain","The highest mountain in Japan is Mt. Fuji"],[6,"kawa","river","The longest river in the world is Nile river"],
-       [7,"hoshi","star","The sun is a star"],[8,"kumo","cloud","Clouds are heavy"],[9,"niji","rainbow","You can never get to the end of a rainbow"]
+    4:[[0,"ki","tree","big tree is \"Ookii ki\""],
+       [1,"hana","flower","beautiful flower is \"kireina hana\""],
+       [2,"tsuki","moon","Michael Jackson's moonwalk "],
+       [3,"taiyou","sun","The sun is the closest star to our planet"],
+       [4,"umi","ocean","Japan is surrounded by the oceans"],
+       [5,"yama","mountain","The highest mountain in Japan is Mt. Fuji"],
+       [6,"kawa","river","The longest river in the world is Nile river"],
+       [7,"hoshi","star","The sun is a star"],
+       [8,"kumo","cloud","Clouds are heavy"],
+       [9,"niji","rainbow","You can never get to the end of a rainbow"]
        ],
     5:[[0,"Ohayou","Good morning.","In the morning, we say \"Ohayou\""],
        [1,"Konnichiwa","Good afternoon.","Konnichiwa also means \"hello\""],
@@ -175,7 +172,7 @@ deck = {
        [3,"Oyasumi","Good night.","Before go to bed, we say \"Oyasumi\""],
        [4,"Arigatou","Thank you.","Thank you everyone"],
        [5,"Sumimasen","I am sorry.","\"Sumimasen\" also means \"Excuse me\"."],
-       [6,"Omedetou","Congratulations.","Congratulations."],
+       [6,"Omedetou","Congratulations.","Omedetou! You made it!"],
        [7,"Hajimemashite","Nice to meet you.","\"Hajime\" means first"],
        [8,"Sayounara","Good bye.","Could be Sayonara"],
        [9,"Youkoso","Welcome.","Welcome to the world!"]
@@ -193,9 +190,6 @@ deck = {
     9:[[0,"Nani","what","What is this?"],[1,"Doko","where","Where are you?"],[2,"Itsu","when","When is it?"],[3,"Dare","who","Who are you?"],
        [4,"Dore","which","Which one?"],[5,"Kore","this ","This is a pen"],[6,"Sore","it","It is a book"],[7,"Are","that ","That is a star"],
        [8,"Ikura","How much","How much?"],[9,"Naze","why","Why?"]]}
-
-
-pd.DataFrame.from_dict(deck, orient='index')
 
 
 # This function displays the title of the game
@@ -243,64 +237,6 @@ def titleHeadMaker(str_title, level):
     print(COR_BR)
 
 
-# TODO: function asks if player is new or returning.
-def userName():
-    # player = input("Are you a returning player (Y) or (N)?")
-    # if player== "Y" or player=='y':
-    #    email = input("Enter your complete email address")
-    #    #look for user in file
-    #    #if found, retrieve name
-    #    print("Welcome back!")
-    #    #if not found, display message to reenter or register new account
-
-    # else:
-    name = input("Enter your name " + TRIANGLE_RIGHT_WHITE + " ")
-    # email = input("Enter your email: ")
-    # print("Welcome, "+name+"!!")
-    return name
-
-
-# Function: OptionsMenu()
-# Displays the main menu of the game
-def optionsMenu():
-    str_title = "MAIN MENU"
-    level = 1
-    titleHeadMaker(str_title, level)
-    menuOption1 = "PLAY GAME"
-    menuOption2 = "STATISTICS"
-    menuOption3 = "SETUP"
-    menuOption4 = "RETURN TO MAIN MENU"
-
-    print(CIRCLE_1 + " " + menuOption1)
-    print(CIRCLE_2 + " " + menuOption2)
-    print(CIRCLE_3 + " " + menuOption3)
-    print(CIRCLE_M + " " + menuOption4)
-
-    ##todo: add exception
-    choice = input(DIAMOND_BLACK + " Enter your choice 1, 2, 3, or Q " + TRIANGLE_RIGHT_WHITE + " ")
-
-    flag = 1
-    # make sure what we return is a valid option
-    while flag != 0:
-        if choice == "1":
-            flag = 0
-            game(sets, deck)
-        elif choice == "2":
-            flag = 0
-            print("On the works")
-            setup() #temporarily
-        elif choice == "3":
-            flag = 0
-            setup()
-        elif choice == "Q" or choice == "q":  # to exit this game
-            flag = 0
-            print("THIS GOES RETURN TO THE MAIN MENU OF THE COMMON APP")
-            exit(0)
-        else:
-            flag = 1
-        print(ARROW_RIGHT + " " + WRONG_CHOICE + " " + CIRCLE1)
-        choice = input(DIAMOND_BLACK + " Enter your choice 1, 2, 3, or Q " + TRIANGLE_RIGHT_WHITE + " ")
-
 def chooseTriviaSet(sets):
     str_title = "CATEGORIES"
     level = 2
@@ -323,21 +259,17 @@ def chooseTriviaSet(sets):
         print(str(i + 1) + " " + x)
         i += 1
 
-    # todo: add exception
-    print("Choose a game set: ", end=" ")
+    print(DIAMOND_BLACK+ " Choose a game set: ", end=" ")
 
     for i in range(0, numberOfSets):
         print((i + 1), end=" ")
-    print(DIAMOND_BLACK + " or M to return to the Game Menu ", end=" ")
-    print(TRIANGLE_RIGHT_WHITE + " ")
+    print(DIAMOND_BLACK + " or M to return to Game Menu "+TRIANGLE_RIGHT_WHITE, end=" ")
 
     gameset = input()
 
     if gameset == "M" or gameset == "m":
         optionsMenu()
 
-    # TODO: check that input is one of the choices!
-    # TODO: break if user chooses M and return to main menu
     gameset = int(gameset) - 1
 
     sleep(1)
@@ -345,12 +277,15 @@ def chooseTriviaSet(sets):
 
 
 def triviaGame(set, deck):
+    #setup variables
+    numWins = 0
+    numLosses = 0
+    score = 0
+
     # deckNo chosen
     deckNo = set[0]
 
     cards = deck[deckNo]
-
-    score = 0
 
     # number of cards in the deck?
     deckLen = len(cards)
@@ -371,7 +306,7 @@ def triviaGame(set, deck):
         # generate random number
         randQuestion = random.randint(0, deckLen - 1)
 
-        # copy originalDeck into a "working" deck
+        # copyoriginalDeck into a "working" deck
         categoryDeck = cards.copy()
 
         # shuffle cards in deck everytime because the player may play consecutive games
@@ -400,8 +335,6 @@ def triviaGame(set, deck):
         # shuffle our deck again
         random.shuffle(categoryDeck)
 
-        # TODO:drop the elements we wont use  and insert the question
-
         # temp:
         optionsToDisplay = 5
 
@@ -420,18 +353,17 @@ def triviaGame(set, deck):
         if AUDIOON == 1:
             phrase = question_word
             thread_4 = Thread(target=Text2speech, args=(phrase, 6))
-            sleep(3)
+            sleep(2)
             thread_4.start()
 
         choiceBad = 0
         # now lets get the answer
         while choiceBad == 0:
             choice = int(input(DIAMOND_BLACK + " Choose 1, 2, 3, 4, or 5 " + TRIANGLE_RIGHT_WHITE + " "))
-            sleep(1)
             if choice > 5 or choice < 1:
                 print(ARROW_RIGHT + " " + WRONG_CHOICE + " " + CIRCLE1)
                 choiceBad = 0
-            # TODO: when input is something else
+
             else:
                 choiceBad = 1
 
@@ -440,17 +372,18 @@ def triviaGame(set, deck):
 
         # compare to right answer
         if yourAnswer == answer:
+            numWins +=1
             if AUDIOON == 1:
                 snd = 2
                 thread_5 = Thread(target=sounds, args=(snd,))
                 thread_5.start()
 
-                phrase = "You are right!"
+                phrase = PLAYERNAME+"You are right!"
                 thread_6 = Thread(target=Text2speech, args=(phrase, 4))
                 thread_6.start()
             for n in range(0, WIDTH - 2):
                 print(GREYBOX3, end="")
-            print("\n" + CHECK + " That's correct! " + STAR_FRAME + " Congratulations!" + STAR_FRAME)
+            print("\n" + CHECK + " That's correct! " + STAR_FRAME + " Congratulations "+PLAYERNAME+ "!! " + STAR_FRAME)
             for n in range(0, WIDTH - 2):
                 print(GREYBOX3, end="")
             score += 1
@@ -459,9 +392,10 @@ def triviaGame(set, deck):
             print(categoryDeck[answerPos][3])
 
         if yourAnswer != answer:
+            numLosses += 1
             for n in range(0, WIDTH - 2):
                 print(GREYBOX3, end="")
-            print("\n" + CROSS_RED + " I am sorry. that is not the correct answer " + CROSS_RED)
+            print("\n" + CROSS_RED + " I am sorry, "+PLAYERNAME+" that is not the correct answer " + CROSS_RED)
             for n in range(0, WIDTH - 2):
                 print(GREYBOX3, end="")
 
@@ -469,11 +403,13 @@ def triviaGame(set, deck):
                 snd = 3
                 thread_05 = Thread(target=sounds, args=(snd,))
                 thread_05.start()
-                phrase = "That's wrong!"
+                phrase = PLAYERNAME+"That's wrong!"
 
                 thread_06 = Thread(target=Text2speech, args=(phrase, 5))
                 thread_06.start()
         print("\n" + STAR1 + " Your overall score is " + str(score) + STAR1)
+
+        statSaveFile(score,numWins, numLosses)
 
         wrongChoice = 1
 
@@ -501,49 +437,30 @@ def triviaGame(set, deck):
     # do something
 
 
+def statSaveFile(score, wins, losses):
+
+    # read file
+    with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
+        data = file.read().splitlines()
+    file.close()
+
+    data[0]= AUDIOON
+    data[1]= MUSICON
+    data[2]= MUSICVOL
+    data[3]= PLAYERNAME
+    data[4]= score
+    data[5]= wins
+    data[6]= losses
+
+    with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+        file.writelines([str(data[0])+"\n",str(data[1])+"\n",str(data[2])+"\n",str(data[3])+"\n",str(data[4])+"\n",str(data[5])+"\n",str(data[6])+"\n"])
+        file.close()
+
+
 def game(sets, deck):
     set = chooseTriviaSet(sets)
     triviaGame(set, deck)
 
-
-def beginGame(LEVEL):
-    if AUDIOON == 1:
-        thread_1 = Thread(target=sounds, args=(LEVEL,))
-        thread_1.start()
-    str_title = "WORD GUESSING GAME"
-
-    level = LEVEL
-    titleHeadMaker(str_title, level)
-
-    name = userName()
-    phrase = "Welcome to the" + str_title + name
-
-    if AUDIOON == 1:
-        thread_02 = Thread(target=Text2speech, args=(phrase, 1))
-        thread_02.start()
-
-    sleep(1)
-    if MUSICON == 1:
-        snd = 4
-        thread_0 = Thread(target=sounds, args=(snd,))
-        thread_0.start()
-
-#Function sounds
-#arguments: snd (
-def sounds(snd):
-    if snd == 1:  # game starts
-        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/game_start.mp3")
-    elif snd == 2:  # win ping
-        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/win_ping.wav")
-    elif snd == 3:  # lose ping
-        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/lose_ping.wav")
-    elif snd == 4:  # music 1
-        mixer.init()
-        mixer.music.load("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/music_2.mp3")
-        mixer.music.set_volume(MUSICVOL)
-        mixer.music.play(-1)
-    # else:
-    # playnothing
 
 def audioONOFF(soundmusic):
     global MUSICON
@@ -563,83 +480,161 @@ def audioONOFF(soundmusic):
     titleHeadMaker(str_title, level)
 
     if soundmusic == 1:
+        flag = 0
         if AUDIOON == 0:
-            choice = input("Press 1 to turn audio ON ")[0]
+            while flag == 0:
+                choice = input(DIAMOND_BLACK+" Press 1 to turn audio ON, C to return to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
 
-            if choice[0] == "1":  # turn ON audio
-                AUDIOON = 1  # change to ON
-                print("Audio has been turned ON. Turn it OFF in the Configuration Menu.")
-                sleep(1)
+                if choice[0] == "1":  # turn ON audio
+                    AUDIOON = 1  # change to ON
+                    print("Audio has been turned ON. Turn it OFF in the Configuration Menu.")
+                    flag = 1
+                    sleep(1)
+
+                elif choice[0] == "c" or choice[0] == "C":
+                    flag = 1
+                    setup()
+                else:
+                    print("Sorry, That's not a correct option. Please try again.")
+                    flag = 0
 
         elif AUDIOON == 1:
-            choice = input("Press 0 to turn audio OFF ")[0]
+            while flag == 0:
+                choice = input(DIAMOND_BLACK+" Press 0 to turn audio OFF, C to return to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
 
-            if choice[0] == "0":  # turn OFF audio
-                AUDIOON = 0  # change to OFF
-                print("Audio has been turned OFF. Turn it ON in the Configuration Menu.")
-                sleep(1)
+                if choice[0] == "0":  # turn OFF audio
+                    AUDIOON = 0  # change to OFF
+                    print("Audio has been turned OFF. Turn it ON in the Configuration Menu.")
+                    flag = 1
+                    sleep(1)
+
+                elif choice[0] == "c" or choice[0]== "C":
+                    flag = 1
+                    setup()
+                else:
+                    print("Sorry, That's not a correct option. Please try again.")
+                    flag = 0
+
+        data[0] = AUDIOON
+        with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+            file.writelines([str(data[0]) + "\n", str(data[1]) + "\n", str(data[2]) + "\n", str(data[3]) + "\n",
+                                 str(data[4]) + "\n", str(data[5]) + "\n", str(data[6]) + "\n"])
+            file.close()
+        setup()
+
+
+    elif soundmusic == 2:  # for MUSIC
+        print(CIRCLE_1+" TURN MUSIC ON/OFF")
+        print(CIRCLE_2+" CHANGE MUSIC VOLUME")
+
+        flag = 0
+        while flag == 0:
+            choice = input(DIAMOND_BLACK+ " Choose 1 or 2, or C to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
+            if choice[0] == "1":
+                if MUSICON == 0:
+                    flag1 = 0
+                    while flag1 == 0:
+                        choice1 = input(DIAMOND_BLACK+" Press 1 to turn music ON, or C to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
+                        if choice1[0] == "1":  # turn ON music
+                            snd=4
+                            sounds(snd)
+                            musicon = 1
+                            print("Music has started playing. To stop music, turn it on in the Configuration Menu")
+                            flag1 = 1
+                            sleep(1)
+
+                        elif choice1[0] == "C" or choice1[0] == "c":
+                            flag1 = 1
+                            setup()
+                        else:
+                            print("Sorry, That's not a correct option. Please try again.")
+                            flag1 = 0
+
+                elif MUSICON == 1 :
+                    flag1 = 0
+                    while flag1 == 0:
+                        choice2 = input(DIAMOND_BLACK+" Press 0 to turn music OFF, or C to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
+                        if choice2[0] == "0":  # turn ON music
+                            musicon = 0
+                            mixer.music.stop()
+                            print("Music has stopped playing. To play music, turn it ON in the Configuration Menu")
+                            flag1 = 1
+                            sleep(1)
+                        elif choice2[0] == "C" or choice1[0] == "c":
+                            flag1 = 1
+                            setup()
+                        else:
+                            print("Sorry, That's not a correct option. Please try again.")
+                            flag1 = 0
+
+                flag = 1
+                MUSICON = musicon
+                data[1] = musicon
+                with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+                    file.writelines([str(data[0]) + "\n", str(data[1]) + "\n", str(data[2]) + "\n", str(data[3]) + "\n",
+                                     str(data[4]) + "\n", str(data[5]) + "\n", str(data[6]) + "\n"])
+                    file.close()
+
+
+            elif choice[0] == "2":
+
+                print(CIRCLE_1+" MUSIC VOLUME LOUD")
+                print(CIRCLE_2+" MUSIC VOLUME MEDIUM")
+                print(CIRCLE_3+" MUSIC VOLUME SOFT")
+
+                flag1 = 0
+                while flag1 == 0:
+                    choice1 = input(DIAMOND_BLACK+" Choose 1, 2, or 3, or C to Configuration Menu "+TRIANGLE_RIGHT_WHITE+" ")[0]
+
+                    if choice1[0] == "1":
+                        MUSICVOL_LOUD = 0.6
+                        mixer.music.set_volume(MUSICVOL_LOUD)
+                        print("Music set to LOUD")
+                        data[2]=MUSICVOL_LOUD
+                        flag1 = 1
+                    elif choice1[0] == "2":
+                        MUSICVOL_MED = 0.3
+                        mixer.music.set_volume(MUSICVOL_MED)
+                        print("Music set to MEDIUM")
+                        data[2]=MUSICVOL_MED
+                        flag1 = 1
+                    elif choice1[0] == "3":
+                        MUSICVOL_SOFT = 0.1
+                        mixer.music.set_volume(MUSICVOL_SOFT)
+                        print("Music set to SOFT")
+                        data[2]=MUSICVOL_SOFT
+                        flag1 = 1
+                    elif choice1[0] == "c" or choice1[0] == "C":
+                        flag1 = 1
+                        setup()
+                    else:
+                        print("Sorry, That's not a correct option. Please try again.")
+                        flag1 = 0
+
+                flag = 1
+
+            else:
+                print("Sorry, That's not a correct option. Please try again.")
+                flag = 0
+
+        with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+            file.writelines([str(data[0]) + "\n", str(data[1]) + "\n", str(data[2]) + "\n", str(data[3]) + "\n",
+                                 str(data[4]) + "\n", str(data[5]) + "\n", str(data[6]) + "\n"])
+            file.close()
 
         setup()
 
-    elif soundmusic == 2:  # for MUSIC
-        print("1. TURN MUSIC ON/OFF")
-        print("2  CHANGE MUSIC VOLUME")
-        choice = input("Choose 1 or 2 ")[0]
-        if choice[0] == "1":
-            if MUSICON == 0:
-                choice = input("Press 1 to turn music ON ")[0]
-
-                if choice[0] == "1":  # turn ON music
-                    snd=4
-                    sounds(snd)
-                    MUSICON = 1
-                    print("Music has started playing. To stop music, turn it on in the Configuration Menu")
-                    sleep(1)
-
-            else:
-                choice = input("Press 0 to turn music OFF, anything else to do nothing")[0]
-
-                if choice[0] == "0": # turn off Music
-                    MUSICON = 0
-                    mixer.music.stop()
-                    print("Music has stopped playing. To play music, turn it on in the Configuration Menu")
-                    sleep(1)
-
-            data[1] = MUSICON
-            setup()
-
-        elif choice[0] == "2":
-            print("1. MUSIC VOLUME LOUD")
-            print("2. MUSIC VOLUME MEDIUM")
-            print("3. MUSIC VOLUME SOFT")
-            choice = input("Choose 1, 2, or 3 ")[0]
-
-            if choice[0] == "1":
-                MUSICVOL_LOUD = 1.0
-                mixer.music.set_volume(MUSICVOL_LOUD)
-                data[2]=MUSICVOL_LOUD
-            elif choice[0] == "2":
-                MUSICVOL_MED = 0.5
-                mixer.music.set_volume(MUSICVOL_MED)
-                data[2]=MUSICVOL_MED
-            elif choice[0] == "3":
-                MUSICVOL_SOFT = 0.2
-                mixer.music.set_volume(MUSICVOL_SOFT)
-                data[2]=MUSICVOL_SOFT
-            setup()
-    with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
-        file.writelines([str(data[0])+"\n",str(data[1])+"\n",str(data[2])+"\n"])
-        file.close()
 
 def setup():
     str_title = "CONFIGURATION"
     level = 2
 
     titleHeadMaker(str_title, level)
-    print("1. AUDIO ON/OFF")
-    print("2. MUSIC ON/OFF + VOLUME")
-    print("3. RESET SCORES")
-    print("4. RETURN TO GAME MENU")
+    print(CIRCLE_1+ " AUDIO ON/OFF")
+    print(CIRCLE_2+ " MUSIC ON/OFF + VOLUME")
+    print(CIRCLE_3+ " RESET PLAYER "+PLAYERNAME+" AND SCORE")
+    print(CIRCLE_4+ " FACTORY RESET")
+    print(CIRCLE_M+ " RETURN TO GAME MENU")
     flag = 0
     while flag == 0:
         choice = input(DIAMOND_BLACK + " Choose an option: " + TRIANGLE_RIGHT_WHITE + " ")[0]
@@ -651,57 +646,289 @@ def setup():
             flag = 1
         elif choice[0] == "3":
             flag = 1
-            print("On the works")
-            optionsMenu() #temporarily
-        elif choice[0] == "M":
+            resetScore()
+        elif choice[0] == "4":
+            flag = 1
+            resetFactory()
+        elif choice[0] == "M" or choice[0] == "m":
             optionsMenu()
             flag = 1
         else:
             print(ARROW_RIGHT + " " + WRONG_CHOICE + " " + CIRCLE1)
             flag = 0
 
-#this function resets the player overall score
+# this function resets the player overall score
+
+def resetFactory():
+    global PLAYERNAME,AUDION, MUSICON, MUSICVOL
+    with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
+        data = file.read().splitlines()
+    file.close()
+
+    data[0] = 1 # default SOUNDS ON
+    data[1] = 1 # default: MUSIC ON
+    data[2] = 0.5  # default music level
+    data[3] = "PLAYERONE" # default name is John Doe
+    data[4] = 0 # score
+    data[5] = 0 # wins
+    data[6] = 0 # loses
+
+    PLAYERNAME = data[3]
+
+    flag = 0
+    while flag == 0:
+        choice = input(DIAMOND_BLACK+" Are you sure to factory reset? Press Y or N "+TRIANGLE_RIGHT_WHITE+ " ")[0]
+        if choice[0] == "Y" or choice[0] == "y":
+            data[0] = 1
+            data[1] = 1
+            data[2] = 0.3
+            data[3] = "PLAYERONE"
+            with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+                file.writelines([str(data[0]) + "\n", str(data[1]) + "\n", str(data[2]) + "\n", str(data[3]) + "\n", str(data[4]) + "\n",
+             str(data[5]) + "\n", str(data[6]) + "\n"])
+            file.close()
+            print("Game was reset to factory default values and Game will restart")
+            sleep(1)
+            flag = 1
+            beginGame(1)
+
+        elif choice[0] == "N" or choice[0] == 'n':
+            print("No changes were made to configuration values")
+            sleep(1)
+            flag = 0
+            setup()
+        else:
+            print("Sorry, That's not a correct option. Please try again.")
+            flag = 0
+
 def resetScore():
 #do something
-    print("Reset Score in development")
 
-#this function displays statistics
+    with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
+        data = file.read().splitlines()
+    file.close()
+
+    data[4] = 0 # score
+    data[5] = 0 # wins
+    data[6] = 0 # loses
+
+    flag = 0
+    while flag == 0:
+        choice= input(DIAMOND_BLACK+" Are you sure to reset "+PLAYERNAME+" and scores to zero? Press Y or N "+TRIANGLE_RIGHT_WHITE+ " ")[0]
+        if choice[0] == "Y" or choice[0] == "y":
+            with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+                file.writelines([str(data[0]) + "\n", str(data[1]) + "\n", str(data[2]) + "\n", str(data[3]) + "\n",
+                                 str(data[4]) + "\n",
+                                 str(data[5]) + "\n", str(data[6]) + "\n"])
+            file.close()
+
+            print(PLAYERNAME+"'s scores were reset to zero")
+            sleep(1)
+            flag = 1
+            setup()
+        elif choice[0] == "N" or choice[0] == 'n':
+            print("Scores were not reset.")
+            sleep(1)
+            flag = 1
+            setup()
+        else:
+            print("Sorry, That's not a correct option. Please try again.")
+            flag = 0
+
+
+# function shows total wins, losses
 def statistics():
-#do something
-    print("Statistics in development")
+    with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
+        data = file.read().splitlines()
+    file.close()
 
+    score = data[4]
+    wins = data[5]
+    losses = data[6]
+
+    print("\n")
+    for n in range(0, WIDTH - 2):
+        print(GREYBOX3, end="")
+
+    print("\n")
+    print("Last player      : "+ data[3])
+    print("Cumulative Score : "+ data[4])
+    print("Number of Wins   : "+ data[5])
+    print("Number of Losses : "+ data[6])
+
+    totalPlays = int(data[5]) + int(data[6])
+
+    print("Number of Plays  : "+ str(totalPlays))
+
+    if totalPlays == 0:
+        percentageWins = "NA"
+    else:
+        percentageWins = (int(data[5])/totalPlays)*100
+
+    print("Win Percentage   : "+ str(percentageWins) + "%")
+    for n in range(0, WIDTH - 2):
+        print(GREYBOX3, end="")
+    print("\n")
+
+    flag = 0
+    while flag == 0:
+        choice = input(DIAMOND_BLACK + " Enter M to return to Game Menu " + TRIANGLE_RIGHT_WHITE + " ")[0]
+
+        if choice[0] == "M" or choice[0] == "m":
+            flag = 1
+            optionsMenu()
+        else:
+            print("Sorry, That is not a right choice. Try again")
+            flag = 0
+
+
+# Function: OptionsMenu()
+# Displays the main menu of the game
+def optionsMenu():
+    str_title = "MAIN MENU"
+    level = 1
+    titleHeadMaker(str_title, level)
+    menuOption1 = "PLAY GAME"
+    menuOption2 = "STATISTICS"
+    menuOption3 = "SETUP"
+    menuOption4 = "RETURN TO MAIN MENU"
+
+    print(CIRCLE_1 + " " + menuOption1)
+    print(CIRCLE_2 + " " + menuOption2)
+    print(CIRCLE_3 + " " + menuOption3)
+    print(CIRCLE_M + " " + menuOption4)
+
+    flag = 0
+    # make sure what we return is a valid option
+    while flag == 0:
+        choice = input(DIAMOND_BLACK + " Enter your choice 1, 2, 3, or M " + TRIANGLE_RIGHT_WHITE + " ")[0]
+        if choice[0] == "1":
+            flag = 1
+            game(sets, deck)
+        elif choice[0] == "2":
+            flag = 1
+            statistics()
+        elif choice[0] == "3":
+            flag = 1
+            setup()
+        elif choice[0] == "M" or choice == "m":  # to exit this game
+            flag = 1
+            print("Thank you for Playing. Returning to MAIN MENU")
+            print("Play again soon "+PLAYERNAME+"!!")
+            sleep(1)
+            exit(0)
+        else:
+            print("Sorry, That is not a right choice. Try again")
+            flag = 0
+
+
+#Function that retrieves user name
+def userName():
+    global PLAYERNAME
+
+    with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
+        data = file.read().splitlines()
+    file.close()
+
+    PLAYERNAME = data[3]
+    wins= int(data[5])
+    losses= int(data[6])
+
+    if wins == 0 and losses == 0:
+        print("WELCOME NEW PLAYER!\n")
+        pName = input(DIAMOND_BLACK+ " Please enter your name " + TRIANGLE_RIGHT_WHITE + " ")
+        flag=0
+        while flag == 0:
+            if pName is None:
+                print("Your name can't be empty. Please try again.")
+                flag = 0
+            else:
+                PLAYERNAME = pName
+                data[3] = PLAYERNAME
+                flag = 1
+    else:
+        print("WELCOME BACK"+", "+PLAYERNAME + "!!")
+
+    with open("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat", "w") as file:
+        file.writelines([str(data[0])+"\n",str(data[1])+"\n",str(data[2])+"\n",str(data[3])+"\n",str(data[4])+"\n",str(data[5])+"\n",str(data[6])+"\n"])
+        file.close()
+
+
+# beginGame is only called once.
+def beginGame(LEVEL):
+
+    if AUDIOON == 1:
+        thread_1 = Thread(target=sounds, args=(LEVEL,))
+        thread_1.start()
+    str_title = "WORD GUESSING GAME"
+
+    level = LEVEL
+    titleHeadMaker(str_title, level)
+
+    userName()
+    phrase = PLAYERNAME + ","+"Welcome to the" + str_title
+    print("Please wait, Game is Loading...")
+    sleep(1.2)
+
+    if AUDIOON == 1:
+        thread_02 = Thread(target=Text2speech, args=(phrase, 1))
+        thread_02.start()
+
+    sleep(1)
+    if MUSICON == 1:
+        snd = 4
+        thread_0 = Thread(target=sounds, args=(snd,))
+        thread_0.start()
+
+
+# Function sounds
+def sounds(snd):
+    if snd == 1:  # game starts
+        playsound.playsound("game_start.mp3")
+    elif snd == 2:  # win ping
+        playsound.playsound("win_ping.wav")
+    elif snd == 3:  # lose ping
+        playsound.playsound("lose_ping.wav")
+    elif snd == 4:  # music 1
+        mixer.init()
+        mixer.music.load("music_2.mp3")
+        mixer.music.set_volume(MUSICVOL)
+        mixer.music.play(-1)
+    else:
+        print("You shouldn't be here")
+
+# function converts text to speech. Implemented different files to avoid any future file permission issues.
 def Text2speech(phrase, audioContent):
     tts = gTTS(text=phrase, lang='en', slow=False)
     if audioContent == 1:  # exclusive for player name
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')
+        tts.save('tts_cont_1.mp3')  # Saving the converted audio in a mp3 file
+        playsound.playsound('tts_cont_1.mp3')  # Playing the converted file
+        os.remove('tts_cont_1.mp3')
     elif audioContent == 2:  # exclusive for titles
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
-    elif audioContent == 3:  # exclusive for categores
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
-    elif audioContent == 4:  # exclusive for youwin
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
+        tts.save('tts_cont_2.mp3')
+        playsound.playsound('tts_cont_2.mp3')
+        os.remove('tts_cont_2.mp3')
+    elif audioContent == 3:  # exclusive for categories
+        tts.save('tts_cont_3.mp3')
+        playsound.playsound('tts_cont_3.mp3')
+        os.remove('tts_cont_3.mp3')
+    elif audioContent == 4:  # exclusive for you win
+        tts.save('tts_cont_1.mp4')
+        playsound.playsound('tts_cont_4.mp3')
+        os.remove('tts_cont_4.mp3')
     elif audioContent == 5:  # exclusive for youlose
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
+        tts.save('tts_cont_1.mp5')
+        playsound.playsound('tts_cont_5.mp3')
+        os.remove('tts_cont_5.mp3')
     elif audioContent == 6:  # exclusive for questions
-        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
-        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
-        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
-
+        tts.save('tts_cont_6.mp3')
+        playsound.playsound('tts_cont_6.mp3')
+        os.remove('tts_cont_6.mp3')
 
 def beforeAnything():
+
     with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
         data = file.read().splitlines()
-
     file.close()
 
     print("v0.9")
@@ -709,10 +936,11 @@ def beforeAnything():
 
 
 myPrefs = beforeAnything()
+# initial global variables
 AUDIOON = int(myPrefs[0])
 MUSICON = int(myPrefs[1])
 MUSICVOL= float(myPrefs[2])
 
-LEVEL=1
+LEVEL = 1
 beginGame(LEVEL)
 optionsMenu()

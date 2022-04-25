@@ -1,0 +1,32 @@
+# pseudocode - Word Guessing Game
+
+# This is the pseudocode for the Word Guessing Game.
+# In the menu of the game, the player will enter the name.
+# The computer will say "Welcome to the Word Guessing Game, 'name'."
+# The player choose the option what he/she wants to do.
+# If the player choose to play the game, then, he choose the category.
+# The computer shows(and reads) the title.
+# The computer will get the random question from that category.
+# It displays a question with 5 options.
+# The options are also randomly selected and always including right answer.
+# The player picks(enters) one number...
+# The computer displays the result with a small fun fact.(Decorating with ASCII codes) 
+# It displays the number of overall correct answers in the same category, and
+# Asks the player, "Continue(y/n), change the category(c), or go back to the menu(m)?"
+# It continues until the player choose to go back to the menu.
+
+# Notes
+
+# This program runs with "playsound", "pygame", and "gtts". 
+# Please make sure that your device has installed those.
+# The files to be downloaded:
+   # Kaneko.TriviaQuiz.py
+   # game_start.mp3
+   # wing_ping.mp3
+   # lose_ping.mp3
+   # music_2.mp3
+   # setupinfo.dat
+# When you run the program on your device, please change the path-> C:/...
+# Original --> 'C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/...' to your location of the downloaded files
+   # lines 443, 455, 471, 519, 573, 620, 664, 686, 707, 719, 741, 829, 852, 930 
+# ver.11
