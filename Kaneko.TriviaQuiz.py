@@ -123,9 +123,9 @@ categories = [
             [0,"Numbers", "Japanese Numbers","What is","in Japanese numbers?"],
             [1,"Fruits","Fruits are awesome", "Do you know what fruit is","?"],
             [2,"Vegetables","Do you like healthy foods?","Do you what know what","is?"],
-            [3,"Animals","Animal Lover","Do you know who is ","?"],
-            [4,"Nature","Planet Earth", "What do you think "," is in English?"],
-            [5,"Greetings","Greeting Someone","What does "," mean in English?"],
+            [3,"Animals","Animal Lover","Do you know who is","?"],
+            [4,"Nature","Planet Earth", "What do you think", "is in English?"],
+            [5,"Greetings","Greeting Someone","How would you say","in English?"],
             [6,"Adjectives","Describe Something","What does","mean in English?"],
             [7,"Verbs","No Verbs, No Actions!","The Japanese verb","English equivalent is?"],
             [8,"Pronouns","Who?","Who would be","?"],
@@ -148,12 +148,12 @@ deck = {
     2:[[0,"kyuuri","cucumber","Japanese cucumbers are smaller"],
        [1,"toumorokoshi","corn","Japanese corns are sweet"],
        [2,"nasu","eggplant","Japanese eggplants are small"],[3,"ninniku","garlic","China produces 76% of the world's supply of garlic."],
-       [4,"kyabetsu","cabbage","Cabbages has lots of vitamin C"],[5,"ninjin","carrot","Bunnies love carrots"],
+       [4,"kyabetsu","cabbage","Cabbages has lots of vitamine C"],[5,"ninjin","carot","Bunnies love carots"],
        [6,"jagaimo","potato","Idaho is coined as the Potato State."],[7,"tamanegi","onion","The most popular onions in Japan is yellow"],
        [8,"hourensou","spinach","Spinach is native to Persia"],[9,"satsumaimo","sweet potato","Sweet potatoes are high in beta carotene"]],
     3:[[0,"inu","dog","I love dogs"],[1,"neko","cat","Cats are independent"],[2,"zou","elephant","Elephants are smart"],
        [3,"uma","horse","Horses are beautiful"],[4,"buta","pig","Pigs are cute"],[5,"kuma","bear","Bears are big"],
-       [6,"tora","tiger","Tigers have stripes"],[7,"tori","bird","Birds fly in the sky"],
+       [6,"tora","tiger","Tigers has stripes"],[7,"tori","bird","Birds fly in the sky"],
        [8,"iruka","dolphin","Dolphins have healing power"],[9,"saru","monkey","Japanese monkeys like to taking baths"]],
     4:[[0,"ki","tree","big tree is \"Ookii ki\""],
        [1,"hana","flower","beautiful flower is \"kireina hana\""],
@@ -657,7 +657,7 @@ def setup():
             print(ARROW_RIGHT + " " + WRONG_CHOICE + " " + CIRCLE1)
             flag = 0
 
-# this function resets the player overall score
+#this function resets the player overall score
 
 def resetFactory():
     global PLAYERNAME,AUDION, MUSICON, MUSICVOL
@@ -736,7 +736,7 @@ def resetScore():
             flag = 0
 
 
-# function shows total wins, losses
+#function shows total wins, losses
 def statistics():
     with open('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/setupinfo.dat', 'r') as file:
         data = file.read().splitlines()
@@ -854,7 +854,7 @@ def userName():
         file.close()
 
 
-# beginGame is only called once.
+#beginGame is only called once.
 def beginGame(LEVEL):
 
     if AUDIOON == 1:
@@ -881,17 +881,17 @@ def beginGame(LEVEL):
         thread_0.start()
 
 
-# Function sounds
+#Function sounds
 def sounds(snd):
     if snd == 1:  # game starts
-        playsound.playsound("game_start.mp3")
+        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/game_start.mp3")
     elif snd == 2:  # win ping
-        playsound.playsound("win_ping.wav")
+        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/win_ping.wav")
     elif snd == 3:  # lose ping
-        playsound.playsound("lose_ping.wav")
+        playsound("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/lose_ping.wav")
     elif snd == 4:  # music 1
         mixer.init()
-        mixer.music.load("music_2.mp3")
+        mixer.music.load("C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/music_2.mp3")
         mixer.music.set_volume(MUSICVOL)
         mixer.music.play(-1)
     else:
@@ -901,29 +901,29 @@ def sounds(snd):
 def Text2speech(phrase, audioContent):
     tts = gTTS(text=phrase, lang='en', slow=False)
     if audioContent == 1:  # exclusive for player name
-        tts.save('tts_cont_1.mp3')  # Saving the converted audio in a mp3 file
-        playsound.playsound('tts_cont_1.mp3')  # Playing the converted file
-        os.remove('tts_cont_1.mp3')
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')   # Saving the converted audio in a mp3 file.
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')  # Playing that file
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_1.mp3')  # Removing that file
     elif audioContent == 2:  # exclusive for titles
-        tts.save('tts_cont_2.mp3')
-        playsound.playsound('tts_cont_2.mp3')
-        os.remove('tts_cont_2.mp3')
-    elif audioContent == 3:  # exclusive for categories
-        tts.save('tts_cont_3.mp3')
-        playsound.playsound('tts_cont_3.mp3')
-        os.remove('tts_cont_3.mp3')
-    elif audioContent == 4:  # exclusive for you win
-        tts.save('tts_cont_1.mp4')
-        playsound.playsound('tts_cont_4.mp3')
-        os.remove('tts_cont_4.mp3')
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_2.mp3')
+    elif audioContent == 3:  # exclusive for categores
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_3.mp3')
+    elif audioContent == 4:  # exclusive for youwin
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_4.mp3')
     elif audioContent == 5:  # exclusive for youlose
-        tts.save('tts_cont_1.mp5')
-        playsound.playsound('tts_cont_5.mp3')
-        os.remove('tts_cont_5.mp3')
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_5.mp3')
     elif audioContent == 6:  # exclusive for questions
-        tts.save('tts_cont_6.mp3')
-        playsound.playsound('tts_cont_6.mp3')
-        os.remove('tts_cont_6.mp3')
+        tts.save('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
+        playsound('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
+        os.remove('C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/tts_cont_6.mp3')
 
 def beforeAnything():
 
@@ -936,7 +936,7 @@ def beforeAnything():
 
 
 myPrefs = beforeAnything()
-# initial global variables
+#initial global variables
 AUDIOON = int(myPrefs[0])
 MUSICON = int(myPrefs[1])
 MUSICVOL= float(myPrefs[2])

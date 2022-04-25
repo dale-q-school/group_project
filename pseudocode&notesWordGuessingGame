@@ -28,5 +28,7 @@
    # setupinfo.dat
 # When you run the program on your device, please change the path-> C:/...
 # Original --> 'C:/Users/Miki.AsusVivobook/PycharmProjects/Projects/quiz/...' to your location of the downloaded files
-   # lines 443, 455, 471, 519, 573, 620, 664, 686, 707, 719, 741, 829, 852, 930 
-# ver.11
+   # lines 443, 455, 471, 519, 573, 620, 664, 686, 707, 719, 741, 829, 852,
+   # lines 887, 889, 891, 894, 904, 905, 906, 908, 909, 910, 912, 913, 914,
+   # lines 916, 917, 918, 920, 921, 922, 924, 925, 926, 930
+# ver.12
