@@ -1,0 +1,7 @@
+#This is the Pseudocode for the Rock paper scissors program
+
+
+#The plan was adding a for to be able to track the wrong answer so it will return the player back to the rock paper scissors introduction
+#being able to choose and randomise the answers so every round will be different
+#adding the different outcomes of the program like who will win 
+#adding a way to count the many time have being played while the loop continues
