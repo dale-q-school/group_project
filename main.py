@@ -1,4 +1,10 @@
+from PabloRPS import *
+from TriviaQuiz import *
+from textadventure import *
+from clearscreen import *
+
 # Main Menu
+clear()
 choice = None
 while choice != '0':
     print(
@@ -6,9 +12,9 @@ while choice != '0':
         Choose a game to play!
         
         0 - Quit
-        1 - Tic Tac Toe
-        2 - Rock, Paper, Scissors
-        3 - Text Adventure
+        1 - Pablo's Rock, Paper, Scissors
+        2 - Kaneko's Word Trivia
+        3 - Dale's Text Adventure
         """
     )
 
@@ -19,26 +25,20 @@ while choice != '0':
     if choice == '0':
         print("Thank you for playing! Goodbye!")
 
-    # Tic Tac Toe
+    # Pablo's Rock, Paper, Scissors
     elif choice == '1':
-        print("Great Choice! Have Fun!")
-        print()
+        clear()
+        rockPaperScissors()
 
-        # Tic Tac Toe code goes here
-
-    # Rock, Paper, Scissors
+    # Kaneko's Word Trivia
     elif choice == '2':
-        print("Great Choice! Have Fun!")
-        print()
+        clear()
+        triviaGame()
 
-        # Rock, Paper, Scissors code goes here
-
-    # Text Adventure
+    # Dale's Text Adventure
     elif choice == '3':
-        print("Great Choice! Have Fun!")
-        print()
-
-        # Text Adventure code goes here
+        clear()
+        textadventure()
 
     else:
         print("Invalid choice. Please select again.")
