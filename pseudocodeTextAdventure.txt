@@ -1,0 +1,16 @@
+Beginning code is for creating the character.
+
+Module for Race.
+
+Module for Profession.
+
+Stats are set using an add or subtract module.
+
+Stats can be added to or subtracted from until all points are spent.
+
+Adventure will begin with a looping battle where damage is dealt to both
+monster and adventurerer.
+
+Monsters will be randomized.
+
+With monster dead and loot obtained, adventurer can continue or retire.
